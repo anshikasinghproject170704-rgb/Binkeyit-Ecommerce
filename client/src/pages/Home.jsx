@@ -13,6 +13,7 @@ import banner from '../assets/banner.jpg'
 import bannerMobile from '../assets/banner-mobile.jpg'
 import CategoryWiseProductDisplay from '../Components/CategoryWiseProductDisplay'
 import { valideURLConvert } from '../utils/valideURLConvert'
+
 const Home = () => {
   const loadingCategory = useSelector(state => state.product.loadingCategory)
   const categoryData = useSelector(state => state.product.allCategory)
@@ -160,7 +161,6 @@ const Home = () => {
                           </div>
                       ))
                     ) : (
-              
                       categoryData.map((cat) => (
                           <div 
                             key={cat._id} 
