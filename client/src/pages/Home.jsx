@@ -14,7 +14,7 @@ import bannerMobile from '../assets/banner-mobile.jpg'
 import CategoryWiseProductDisplay from '../Components/CategoryWiseProductDisplay'
 import { valideURLConvert } from '../utils/valideURLConvert'
 
-// === NEW: SmartKits Import ===
+// === SmartKits Import ===
 import SmartKits from './SmartKits' 
 
 const Home = () => {
@@ -133,21 +133,20 @@ const Home = () => {
            </div>
         ) : (
              <>
-                {/* Hero Banner */}
-                <div className={`w-full h-40 md:h-72 bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl overflow-hidden shadow-sm mb-8`}>
+                {/* Hero Banner Section */}
+                <div className="w-full h-40 md:h-72 bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl overflow-hidden shadow-sm mb-8">
                   <img src={banner} className='w-full h-full object-cover hidden lg:block' alt='banner'/>
                   <img src={bannerMobile} className='w-full h-full object-cover lg:hidden' alt='banner'/>
                 </div>
 
-                {/* === NEW: SMART KITS SECTION (Placed before categories) === */}
+                {/* === Smart Kits Section (Outside of any complex logic) === */}
                 <SmartKits />
 
-                {/* Shop By Category Title */}
+                {/* Shop By Category Section */}
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-green-600 pl-3 mt-8">
                     Shop by Category
                 </h2>
 
-                {/* Category Grid */}
                 <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-10'>
                   {loadingCategory ? (
                       new Array(12).fill(null).map((_, index) => (
@@ -157,7 +156,8 @@ const Home = () => {
                           </div>
                       ))
                     ) : (
-                      categoryData.map((cat) => (
+                      categoryData && categoryData.length > 0 ? (
+                        categoryData.map((cat) => (
                           <div 
                             key={cat._id} 
                             onClick={() => handleRedirectProductListpage(cat._id, cat.name)}
@@ -170,12 +170,17 @@ const Home = () => {
                                 {cat.name}
                             </p>
                           </div>
-                      ))
+                        ))
+                      ) : (
+                        <div className="col-span-full py-10 text-center text-gray-400">
+                          No categories available.
+                        </div>
+                      )
                     )
                   }
                 </div>
 
-                {/* Horizontal Product Sliders */}
+                {/* Horizontal Product Displays */}
                 {categoryData?.map((c) => (
                     <CategoryWiseProductDisplay
                         key={c?._id + "CategorywiseProduct"}
