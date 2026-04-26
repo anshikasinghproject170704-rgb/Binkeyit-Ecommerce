@@ -14,6 +14,9 @@ import bannerMobile from '../assets/banner-mobile.jpg'
 import CategoryWiseProductDisplay from '../Components/CategoryWiseProductDisplay'
 import { valideURLConvert } from '../utils/valideURLConvert'
 
+// === SMARTKITS IMPORT ===
+import SmartKits from '../Components/SmartKits'
+
 const Home = () => {
   const loadingCategory = useSelector(state => state.product.loadingCategory)
   const categoryData = useSelector(state => state.product.allCategory)
@@ -145,6 +148,9 @@ const Home = () => {
                   <img src={banner} className='w-full h-full object-cover hidden lg:block' alt='banner'/>
                   <img src={bannerMobile} className='w-full h-full object-cover lg:hidden' alt='banner'/>
                 </div>
+
+                {/* === SMARTKITS SECTION === */}
+                <SmartKits />
 
                 {/* Shop By Category Title */}
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-green-600 pl-3">
