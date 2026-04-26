@@ -13,8 +13,6 @@ import banner from '../assets/banner.jpg'
 import bannerMobile from '../assets/banner-mobile.jpg'
 import CategoryWiseProductDisplay from '../Components/CategoryWiseProductDisplay'
 import { valideURLConvert } from '../utils/valideURLConvert'
-import SmartKits from '../Components/SmartKits';
-
 const Home = () => {
   const loadingCategory = useSelector(state => state.product.loadingCategory)
   const categoryData = useSelector(state => state.product.allCategory)
@@ -161,10 +159,7 @@ const Home = () => {
                             <div className='bg-gray-200 h-4 w-3/4 mx-auto rounded'></div>
                           </div>
                       ))
-                    {/* Professional SmartKits Section */}
-<div className='container mx-auto px-4 mb-8'>
-    <SmartKits />
-</div>) : (
+                    ) : (
                       categoryData.map((cat) => (
                           <div 
                             key={cat._id} 
