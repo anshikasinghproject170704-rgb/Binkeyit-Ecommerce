@@ -6,14 +6,14 @@ import { useGlobalContext } from '../provider/GlobalProvider'
 import toast from 'react-hot-toast'
 import SummaryApi from '../common/summaryApi'
 import AxiosToastError from '../utils/AxiosToastError'
-import { FaBoxOpen } from "react-icons/fa";
+import { FaBoxOpen, FaSync } from "react-icons/fa";
 
 import banner from '../assets/banner.jpg'
 import bannerMobile from '../assets/banner-mobile.jpg'
 import CategoryWiseProductDisplay from '../Components/CategoryWiseProductDisplay'
 import { valideURLConvert } from '../utils/valideURLConvert'
 
-// === DHAYAN DEIN: Ye line tabhi chalegi jab SmartKits isi folder mein ho ===
+// === Ensure SmartKits.jsx is in the same folder (src/pages/) ===
 import SmartKits from './SmartKits' 
 
 const Home = () => {
@@ -86,6 +86,11 @@ const Home = () => {
     navigate(url)
   }
 
+  // Function to refresh the page if data is missing
+  const refreshData = () => {
+    window.location.reload();
+  };
+
   return (
     <section className='bg-gray-50 min-h-screen'>
       <div className='container mx-auto px-4 py-4'>
@@ -121,13 +126,13 @@ const Home = () => {
            </div>
         ) : (
              <>
-                {/* Banner */}
+                {/* Banner Section */}
                 <div className="w-full h-40 md:h-72 bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl overflow-hidden shadow-sm mb-8">
                   <img src={banner} className='w-full h-full object-cover hidden lg:block' alt='banner'/>
                   <img src={bannerMobile} className='w-full h-full object-cover lg:hidden' alt='banner'/>
                 </div>
 
-                {/* === Smart Kits Section === */}
+                {/* === Smart Kits === */}
                 <SmartKits />
 
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-green-600 pl-3 mt-8">
@@ -153,13 +158,21 @@ const Home = () => {
                           </div>
                         ))
                       ) : (
-                        <div className="col-span-full py-10 text-center text-gray-400">No categories found.</div>
+                        <div className="col-span-full py-10 flex flex-col items-center justify-center bg-white rounded-xl border border-dashed border-gray-200">
+                          <p className="text-gray-400 mb-3">No categories loaded yet.</p>
+                          <button 
+                            onClick={refreshData}
+                            className="flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-all font-medium"
+                          >
+                            <FaSync /> Sync Data
+                          </button>
+                        </div>
                       )
                     )
                   }
                 </div>
 
-                {/* Product Sliders */}
+                {/* Horizontal Product Sliders */}
                 {categoryData?.map((c) => (
                     <CategoryWiseProductDisplay key={c?._id + "CategorywiseProduct"} id={c?._id} name={c?.name} />
                 ))}
