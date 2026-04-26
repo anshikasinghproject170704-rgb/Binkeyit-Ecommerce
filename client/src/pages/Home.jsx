@@ -8,13 +8,12 @@ import SummaryApi from '../common/summaryApi'
 import AxiosToastError from '../utils/AxiosToastError'
 import { FaBoxOpen } from "react-icons/fa";
 
-// Component Imports
 import banner from '../assets/banner.jpg'
 import bannerMobile from '../assets/banner-mobile.jpg'
 import CategoryWiseProductDisplay from '../Components/CategoryWiseProductDisplay'
 import { valideURLConvert } from '../utils/valideURLConvert'
 
-// === SmartKits Import ===
+// === DHAYAN DEIN: Ye line tabhi chalegi jab SmartKits isi folder mein ho ===
 import SmartKits from './SmartKits' 
 
 const Home = () => {
@@ -102,21 +101,12 @@ const Home = () => {
                     {searchResults.map((product) => (
                         <div key={product._id} className="border border-gray-100 p-4 rounded-xl shadow-sm hover:shadow-lg transition-all bg-white group">
                             <div className="w-full h-32 mb-3 overflow-hidden">
-                                <img 
-                                    src={product.image[0]} 
-                                    alt={product.name} 
-                                    className="w-full h-full object-scale-down transform group-hover:scale-110 transition-transform duration-300"
-                                />
+                                <img src={product.image[0]} alt={product.name} className="w-full h-full object-scale-down transform group-hover:scale-110 transition-transform duration-300" />
                             </div>
                             <p className="font-semibold text-sm line-clamp-2 h-10 mb-1">{product.name}</p>
                             <div className="flex justify-between items-center mt-2">
                                 <p className="text-green-600 font-bold">₹{product.price}</p>
-                                <button 
-                                    className='bg-green-100 text-green-700 text-xs font-bold px-4 py-1.5 rounded-full hover:bg-green-600 hover:text-white transition-colors'
-                                    onClick={(e) => handleAddToCart(e, product._id)}
-                                >
-                                    ADD
-                                </button>
+                                <button className='bg-green-100 text-green-700 text-xs font-bold px-4 py-1.5 rounded-full hover:bg-green-600 hover:text-white transition-colors' onClick={(e) => handleAddToCart(e, product._id)}>ADD</button>
                             </div>
                         </div>
                     ))}
@@ -125,24 +115,21 @@ const Home = () => {
                 <div className='flex flex-col items-center justify-center py-16 text-gray-400'>
                     <FaBoxOpen size={48} className="mb-4 opacity-50"/>
                     <p className='text-lg font-medium'>No products found matching your search.</p>
-                    <button onClick={() => navigate('/')} className='mt-4 text-green-600 font-semibold hover:underline'>
-                        Clear Search
-                    </button>
+                    <button onClick={() => navigate('/')} className='mt-4 text-green-600 font-semibold hover:underline'>Clear Search</button>
                 </div>
              )}
            </div>
         ) : (
              <>
-                {/* Hero Banner Section */}
+                {/* Banner */}
                 <div className="w-full h-40 md:h-72 bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl overflow-hidden shadow-sm mb-8">
                   <img src={banner} className='w-full h-full object-cover hidden lg:block' alt='banner'/>
                   <img src={bannerMobile} className='w-full h-full object-cover lg:hidden' alt='banner'/>
                 </div>
 
-                {/* === Smart Kits Section (Outside of any complex logic) === */}
+                {/* === Smart Kits Section === */}
                 <SmartKits />
 
-                {/* Shop By Category Section */}
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-green-600 pl-3 mt-8">
                     Shop by Category
                 </h2>
@@ -158,35 +145,23 @@ const Home = () => {
                     ) : (
                       categoryData && categoryData.length > 0 ? (
                         categoryData.map((cat) => (
-                          <div 
-                            key={cat._id} 
-                            onClick={() => handleRedirectProductListpage(cat._id, cat.name)}
-                            className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center cursor-pointer hover:shadow-md hover:border-green-300 transition-all duration-300 group"
-                          >
+                          <div key={cat._id} onClick={() => handleRedirectProductListpage(cat._id, cat.name)} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center cursor-pointer hover:shadow-md hover:border-green-300 transition-all duration-300 group">
                             <div className="w-20 h-20 mb-3 transform group-hover:scale-110 transition-transform duration-300">
                                 <img src={cat.image} alt={cat.name} className='w-full h-full object-scale-down'/>
                             </div>
-                            <p className="text-sm font-semibold text-gray-700 text-center group-hover:text-green-600 line-clamp-1">
-                                {cat.name}
-                            </p>
+                            <p className="text-sm font-semibold text-gray-700 text-center group-hover:text-green-600 line-clamp-1">{cat.name}</p>
                           </div>
                         ))
                       ) : (
-                        <div className="col-span-full py-10 text-center text-gray-400">
-                          No categories available.
-                        </div>
+                        <div className="col-span-full py-10 text-center text-gray-400">No categories found.</div>
                       )
                     )
                   }
                 </div>
 
-                {/* Horizontal Product Displays */}
+                {/* Product Sliders */}
                 {categoryData?.map((c) => (
-                    <CategoryWiseProductDisplay
-                        key={c?._id + "CategorywiseProduct"}
-                        id={c?._id}
-                        name={c?.name}
-                    />
+                    <CategoryWiseProductDisplay key={c?._id + "CategorywiseProduct"} id={c?._id} name={c?.name} />
                 ))}
              </>
         )}
